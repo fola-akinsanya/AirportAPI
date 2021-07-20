@@ -3,7 +3,7 @@ const airports = require("./airports")
 const request = require("supertest");
 
 describe("My Airport server", () => {
-    test("can GET all the airports", (done) => {
+    test("GET /can GET all the airports", (done) => {
         request(app)
             .get("/airports")
             .expect(200)
@@ -13,7 +13,7 @@ describe("My Airport server", () => {
             .end(done);
     });
 
-    test("can get one airport", (done) => {
+    test("GET /can get one airport", (done) => {
         var airport = airports[Math.floor(Math.random()*airports.length)];
         const airportID = airport.icao
         request(app)
@@ -25,7 +25,7 @@ describe("My Airport server", () => {
             .end(done);
     });
 
-    test("can add an airport", (done) => {
+    test("POST /can add an airport", (done) => {
         const testAirport = {
             "icao": "TEST",
             "iata": "",
@@ -48,7 +48,7 @@ describe("My Airport server", () => {
             .end(done);
     });
 
-    test("can update an airport", (done) => {
+    test("PUT /can update an airport", (done) => {
         const newAirport = {
             "icao": "TEST",
             "iata": "",
@@ -74,7 +74,7 @@ describe("My Airport server", () => {
         .end(done)
     })
     
-    test("can delete an airport", (done) => {
+    test("DELETE /can delete an airport", (done) => {
         var airport = airports[Math.floor(Math.random()*airports.length)];
         const airportID = airport.icao
         const arrayLengthBefore = airports.length;
