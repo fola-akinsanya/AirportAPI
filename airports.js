@@ -1,0 +1,1 @@
+const airports = require("./airports.json")
