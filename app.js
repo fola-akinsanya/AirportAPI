@@ -13,7 +13,7 @@ app.get("/airports", (req,res) => {
         page*pageSize, 
         page*pageSize + pageSize
         );
-    page && pageSize ? res.json(array) : res.json(airports)
+    page && pageSize ? res.status(200).json(array) : res.status(200).json(airports)
 });
 
 app.post("/airports", (req,res) => {
@@ -21,20 +21,17 @@ app.post("/airports", (req,res) => {
     res.sendStatus(201);
 })
 
-app.get(`/airports/:icao`, (req,res) => {
+app.get("/airports/:icao", (req,res) => {
     const airportID = req.params.icao;
     const airport = airports.find(airport => airport.icao === airportID)
     res.json(airport);
     res.sendStatus(200);
 })
 
-app.put(`/airports/:icao`, (req,res) => {
+app.put("/airports/:icao", (req,res) => {
     const airportID = req.params.icao;
-    let airport = airports.find(airport => airport.icao === airportID)
-    const index = airports.indexOf(airport);
-    airport = req.body;
-    airports[index] = airport
-    res.json(airport);
+    let index = airports.findIndex(airport => airport.icao === airportID)
+    airports[index] = req.body;
     res.sendStatus(200);
 })
 
@@ -45,14 +42,6 @@ app.delete(`/airports/:icao`, (req,res) => {
     airports.splice(index, 1);
     console.log(airports[index], "had been deleted")
     res.sendStatus(200);
-})
-
-app.get(`/airports/:page/:pageSize`, (req,res) => {
-    const page = req.params.page;
-    const pageSize = req.params.pageSize;
-    const array = airports.splice((page*pageSize), pageSize);
-    res.json(array);
-    res.sendStatus(200)
 })
 
 module.exports = app;

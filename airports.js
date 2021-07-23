@@ -1,3 +1,3 @@
 const airports = require("./airports.json")
 
-module.exports = airports, paginate
+module.exports = airports
